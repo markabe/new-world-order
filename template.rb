@@ -4,30 +4,31 @@ git :commit => "-a -m 'Initial commit'"
 
 run "rm public/index.html"
 run "rm Gemfile"
+run "touch Gemfile" 
 run "rm -rf test"
 
-git :commit => "-a -m 'Remove default index and Gemfile'"
+git :commit => "-a -m 'Remove default index and clear Gemfile'"
 
 file 'Gemfile', <<-CODE
-source 'http://rubygems.org'
+source "http://rubygems.org"
 
-gem 'rails', '3.0.0.beta3'
+gem "rails", "3.0.0.beta3"
 
-gem 'sqlite3-ruby', :require => 'sqlite3'
+gem "sqlite3-ruby", :require => "sqlite3"
 
 group "development" do
   gem "unicorn"
 end
 
 group "test" do
-  gem 'database_cleaner'
-  gem 'capybara'
-  gem 'cucumber-rails', :git => "git://github.com/aslakhellesoy/cucumber-rails.git"
+  gem "database_cleaner"
+  gem "capybara"
+  gem "cucumber-rails", :git => "git://github.com/aslakhellesoy/cucumber-rails.git"
   gem "factory_girl", "1.2.4", :require => nil
   gem "mocha"
-  gem 'rspec', '~> 2.0.0.beta.8'
-  gem 'rspec-rails', '~> 2.0.0.beta.8'
-  gem 'test-unit'
+  gem "rspec", "~> 2.0.0.beta.8"
+  gem "rspec-rails", "~> 2.0.0.beta.8"
+  gem "test-unit"  
 end
 CODE
 
