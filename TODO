@@ -1,5 +1,6 @@
 TODO
 =================
+* Jquery instead of Prototype/Scriptaculous
 * configure focused specs for RSpec
 * wire up watchr for re-running specs
 * wire up CSS into application.html.erb
