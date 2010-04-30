@@ -4,7 +4,6 @@ git :commit => "-a -m 'Initial commit'"
 
 run "rm public/index.html"
 run "rm Gemfile"
-run "touch Gemfile" 
 run "rm -rf test"
 
 git :commit => "-a -m 'Remove default index and clear Gemfile'"
@@ -13,8 +12,17 @@ file 'Gemfile', <<-CODE
 source "http://rubygems.org"
 
 gem "rails", "3.0.0.beta3"
+CODE
 
-gem "sqlite3-ruby", :require => "sqlite3"
+unless options[:skip_activerecord]
+  if require_for_database
+    gem gem_for_database, :require => require_for_database
+  else
+    gem gem_for_database
+  end
+end
+
+append_file 'Gemfile', <<-CODE
 
 group "development" do
   gem "unicorn"
@@ -45,3 +53,5 @@ generate "cucumber:skeleton", "--rspec", "--capybara"
 git :commit => "-a -m 'Cucumber generated'"
 
 rake "db:create:all db:migrate"
+
+Say "All done!  Please edit your database.yml file with your database credentials and you should be all set!"
