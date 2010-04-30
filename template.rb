@@ -48,12 +48,17 @@ end
 CODE
 
 run "bundle install"
+git :add => "."
 git :commit => "-a -m  'Initial gems setup'"
 
 generate "rspec:install"
+gsub_file 'spec/spec_helper.rb', "# config.mock_with :mocha", "config.mock_with :mocha"
+gsub_file 'spec/spec_helper.rb', "config.mock_with :rspec", "# config.mock_with :rspec"
+git :add => "."
 git :commit => "-a -m 'Rspec generated'"
 
 generate "cucumber:skeleton", "--rspec", "--capybara"
+git :add => "."
 git :commit => "-a -m 'Cucumber generated'"
 
 rake "db:create:all db:migrate"
