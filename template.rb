@@ -8,6 +8,13 @@ run "rm -rf test"
 
 git :commit => "-a -m 'Remove default index and clear Gemfile'"
 
+# Rails default generator uses 'app_name' as the username for postgresql -- thats dumb
+# We replace that with 'postgres' which is a more common development configuration
+if options[:database] == "postgresql"
+  gsub_file 'config/database.yml', "username: #{app_name}", "username: postgres"
+  git :commit => "-a -m 'Use postgres user for database.yml'"
+end
+
 file 'Gemfile', <<-CODE
 source "http://rubygems.org"
 
@@ -41,17 +48,14 @@ end
 CODE
 
 run "bundle install"
-
-git :commit => "-a -m  'Initial gem setup and bundle install'"
+git :commit => "-a -m  'Initial gems setup'"
 
 generate "rspec:install"
-
 git :commit => "-a -m 'Rspec generated'"
 
 generate "cucumber:skeleton", "--rspec", "--capybara"
-
 git :commit => "-a -m 'Cucumber generated'"
 
 rake "db:create:all db:migrate"
 
-Say "All done!  Please edit your database.yml file with your database credentials and you should be all set!"
+say "All done!  Thanks for installing using the NEW WORLD ORDER"
