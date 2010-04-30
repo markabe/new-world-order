@@ -1,5 +1,10 @@
+TODO
+=================
 * configure focused specs for RSpec
 * wire up watchr for re-running specs
-* some sort of optional auth system (Devise? Clearance?)
-* CSS reset
+* wire up CSS into application.html.erb
 * CSS framework -- http://960.gs
+
+IDEAS
+=================
+* some sort of optional auth system (Devise? Clearance?)
