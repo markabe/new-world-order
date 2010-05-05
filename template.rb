@@ -38,7 +38,7 @@ end
 group "test" do
   gem "database_cleaner"
   gem "capybara"
-  gem "cucumber-rails", :git => "git://github.com/aslakhellesoy/cucumber-rails.git"
+  gem "cucumber-rails", :git => "http://github.com/aslakhellesoy/cucumber-rails.git"
   gem "factory_girl", "1.2.4", :require => nil
   gem "mocha"
   gem "rspec", "~> 2.0.0.beta.8"
