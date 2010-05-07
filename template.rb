@@ -8,7 +8,7 @@ run "rm -rf test"
 
 git :commit => "-a -m 'Remove default index and clear Gemfile'"
 
-# Rails default generator uses 'app_name' as the username for postgresql -- thats dumb
+# Rails default generator uses 'app_name' as the username for postgresql -- that is dumb
 # We replace that with 'postgres' which is a more common development configuration
 if options[:database] == "postgresql"
   gsub_file 'config/database.yml', "username: #{app_name}", "username: postgres"
@@ -54,6 +54,17 @@ git :commit => "-a -m  'Initial gems setup'"
 generate "rspec:install"
 gsub_file 'spec/spec_helper.rb', "# config.mock_with :mocha", "config.mock_with :mocha"
 gsub_file 'spec/spec_helper.rb', "config.mock_with :rspec", "# config.mock_with :rspec"
+rspec_config =<<-CODE
+  # Configure RSpec to run focused specs, and also respect the alias 'fit' for focused specs
+  config.filter_run :focused => true
+  config.run_all_when_everything_filtered = true
+  config.alias_example_to :fit, :focused => true
+  # Turn color on if we are NOT inside Textmate, Emacs, or VIM
+  config.color_enabled = ENV.keys.none? { |k| k.include?("TM_MODE", "EMACS", "VIM") }
+CODE
+
+inject_into_file "spec/spec_helper.rb", rspec_config, :after => /Rspec.configure.*$/
+
 git :add => "."
 git :commit => "-a -m 'Rspec generated'"
 
