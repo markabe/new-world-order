@@ -1,10 +1,14 @@
 git :init
+append_file '.gitignore', "vendor/bundler_gems\nconfig/database.yml\n"
+run "cp config/database.yml config/database.yml.example"
 git :add => "."
 git :commit => "-a -m 'Initial commit'"
 
-%W[Gemfile README doc/README_FOR_APP public/index.html test].each do |path|
-  run "rm -rf #{path}"
+%W[Gemfile README doc/README_FOR_APP public/index.html public/images/rails.png].each do |path|
+  run "rm #{path}"
 end
+
+run "rm -rf test"
 
 file 'README.markdown', <<-EOL
 # Welcome to #{app_name}
@@ -50,9 +54,29 @@ table {border-collapse: collapse; border-spacing: 0;}
 
 CODE
 
-append_file '.gitignore', "vendor/bundler_gems\n"
+# remove Prototype defaults
+run "rm public/javascripts/controls.js"
+run "rm public/javascripts/dragdrop.js"
+run "rm public/javascripts/effects.js"
+run "rm public/javascripts/prototype.js"
 
-git :commit => "-a -m 'Remove default cruft; templates for README and css'"
+open("http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js") do |source|
+  File.open("public/javascripts/jquery-1.4.2.min.js", 'w') {|f| f.write(source.read) }
+end
+
+open("http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js") do |source|
+  File.open("public/javascripts/jquery-ui-1.8.1.min.js", 'w') {|f| f.write(source.read) }
+end
+
+commit_message =<<EOC 
+Remove defaults; add preferred JS and CSS:
+
+  - replace Protoype with jquery & jquery-ui minified versions
+  - add a simple CSS reset
+  - add a README template to help devs get quick started
+EOC
+git :add => "."
+git :commit => "-m '#{commit_message}'"
 
 # Rails default generator uses 'app_name' as the username for postgresql -- that is dumb
 # We replace that with 'postgres' which is a more common development configuration

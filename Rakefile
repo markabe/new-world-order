@@ -1,3 +1,4 @@
+desc "Run template with defaults"
 task :test do
   system "rails tmp/r3-test -m template.rb"
 end
