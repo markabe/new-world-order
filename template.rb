@@ -2,11 +2,57 @@ git :init
 git :add => "."
 git :commit => "-a -m 'Initial commit'"
 
-run "rm public/index.html"
-run "rm Gemfile"
-run "rm -rf test"
+%W[Gemfile README doc/README_FOR_APP public/index.html test].each do |path|
+  run "rm -rf #{path}"
+end
 
-git :commit => "-a -m 'Remove default index and clear Gemfile'"
+file 'README.markdown', <<-EOL
+# Welcome to #{app_name}
+
+## Summary
+
+#{app_name} is a .... TODO high level summary of app
+
+## Getting Started
+
+    gem install bundler
+    # TODO other setup commands here
+    
+## Seed Data
+
+Login as ....  # TODO insert typical test accounts for QA / devs to login to app as
+EOL
+
+file 'public/stylesheets/screen.css', <<-CODE
+/*========================================================
+	RESET HERE
+========================================================*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; background: transparent;}
+body {line-height: 1;}
+ol, ul {list-style: none;}
+blockquote, q {quotes: none;}
+blockquote:before, blockquote:after, q:before, q:after {content: ''; content: none;}
+/* remember to define focus styles! */
+:focus {outline: 0;}
+/* remember to highlight inserts somehow! */
+ins {text-decoration: none;}
+del {text-decoration: line-through;}
+/* tables still need 'cellspacing="0"' in the markup */
+table {border-collapse: collapse; border-spacing: 0;}
+
+CODE
+
+append_file '.gitignore', "vendor/bundler_gems\n"
+
+git :commit => "-a -m 'Remove default cruft; templates for README and css'"
 
 # Rails default generator uses 'app_name' as the username for postgresql -- that is dumb
 # We replace that with 'postgres' which is a more common development configuration
@@ -71,33 +117,6 @@ git :commit => "-a -m 'Rspec generated'"
 generate "cucumber:skeleton", "--rspec", "--capybara"
 git :add => "."
 git :commit => "-a -m 'Cucumber generated'"
-
-file 'public/stylesheets/screen.css', <<-CODE
-/*========================================================
-	RESET HERE
-========================================================*/
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, font, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td {margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; background: transparent;}
-body {line-height: 1;}
-ol, ul {list-style: none;}
-blockquote, q {quotes: none;}
-blockquote:before, blockquote:after, q:before, q:after {content: ''; content: none;}
-/* remember to define focus styles! */
-:focus {outline: 0;}
-/* remember to highlight inserts somehow! */
-ins {text-decoration: none;}
-del {text-decoration: line-through;}
-/* tables still need 'cellspacing="0"' in the markup */
-table {border-collapse: collapse; border-spacing: 0;}
-
-CODE
 
 rake "db:create:all db:migrate"
 

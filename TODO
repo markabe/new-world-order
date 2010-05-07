@@ -2,12 +2,8 @@ TODO
 =================
 * Jquery instead of Prototype/Scriptaculous
 * wire up watchr for re-running specs
-* wire up CSS into application.html.erb
 * CSS framework -- http://960.gs
-* Remove doc/README_FOR_APP
-* Replace ./README with ./README.mdown with appropriate developer setup boilerplate
 * Create config/database.yml.example and git rm config/database.yml
-* Add vendor/bundler_gems to .gitignore
 
 IDEAS
 =================
