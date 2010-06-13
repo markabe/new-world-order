@@ -111,8 +111,8 @@ group "test" do
   gem "cucumber-rails", :git => "http://github.com/aslakhellesoy/cucumber-rails.git"
   gem "factory_girl_rails", "1.0", :require => nil
   gem "mocha"
-  gem "rspec", "~> 2.0.0.beta.8"
-  gem "rspec-rails", "~> 2.0.0.beta.8"
+  gem "rspec", "~> 2.0.0.beta.11"
+  gem "rspec-rails", "~> 2.0.0.beta.11"
   gem "test-unit"  
 end
 CODE
