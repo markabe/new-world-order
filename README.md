@@ -13,11 +13,11 @@ Rails 3 [Relevance][rel] Style.  This means the following:
 Getting Started
 ---------------
 
-    rails my-app -m http://github.com/relevance/new-world-order/raw/master/template.rb
+    rails new my-app -m http://github.com/relevance/new-world-order/raw/master/template.rb
 
 To use your database of choice, use the built in `-d` switch to the `rails` command.  New World Order's generated Gemfile will properly respect your database of choice.  For Postgres, we reach into your database.yml and make the username `postgres` (instead of your application name, which the Rails generator does by default).
 
-    rails my-postgres-app -d postgresql -m http://github.com/relevance/new-world-order/raw/master/template.rb
+    rails new my-postgres-app -d postgresql -m http://github.com/relevance/new-world-order/raw/master/template.rb
 
 Feedback and Other Items
 ------------------------
