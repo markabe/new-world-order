@@ -130,7 +130,7 @@ rspec_config =<<-CODE
   config.run_all_when_everything_filtered = true
   config.alias_example_to :fit, :focused => true
   # Turn color on if we are NOT inside Textmate, Emacs, or VIM
-  config.color_enabled = ENV.keys.none? { |k| k.include?("TM_MODE", "EMACS", "VIM") }
+  config.color_enabled = (%w[TM_MODE EMACS VIM] & ENV.keys).empty?
 CODE
 
 inject_into_file "spec/spec_helper.rb", rspec_config, :after => /Rspec.configure.*$/
