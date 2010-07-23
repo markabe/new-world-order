@@ -111,7 +111,7 @@ group "test" do
   gem "database_cleaner"
   gem "capybara"
   gem "cucumber-rails", :git => "http://github.com/aslakhellesoy/cucumber-rails.git"
-  gem "factory_girl_rails", "1.0", :require => nil
+  gem "factory_girl_rails", "1.0"
   gem "mocha"
   gem "rspec", "~> 2.0.0.beta.17"
   gem "rspec-rails", "~> 2.0.0.beta.17"
