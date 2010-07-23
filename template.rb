@@ -68,6 +68,8 @@ open("http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js") do 
   File.open("public/javascripts/jquery-ui-1.8.1.min.js", 'w') {|f| f.write(source.read) }
 end
 
+gsub_file('app/views/layouts/application.html.erb','javascript_include_tag :defaults','javascript_include_tag :all' )
+
 commit_message =<<EOC 
 Remove defaults; add preferred JS and CSS:
 
