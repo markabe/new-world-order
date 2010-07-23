@@ -149,4 +149,7 @@ git :commit => "-a -m 'Cucumber generated'"
 
 rake "db:create:all db:migrate"
 
+git :add => "."
+git :commit => "-a -m 'Schema generated'"
+
 say "All done!  Thanks for installing using the NEW WORLD ORDER"
